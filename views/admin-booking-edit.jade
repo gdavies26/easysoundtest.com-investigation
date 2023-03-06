@@ -1,0 +1,255 @@
+extends admin-layout
+
+block content
+  h1= title
+      
+  -if (error)
+    .error
+      p=error
+          
+  form(action='/admin/booking/save', method='post').row-fluid
+    
+    //- Test details
+    fieldset.span4
+      legend Test details
+      
+      //- Date
+      .field.control-group
+        label(for='date') Date 
+          b (required)
+        input(type='date', name='date', id='date', value='#{docs.date.toString("yyyy-MM-dd")}')
+
+      //- Tester 
+      .field.control-group
+        label(for='engineer') Tester
+        select(name='engineer', id='engineer')
+          - each key in Object.keys(engineerNames).sort()
+            - if (!engineerNames[key] || key == docs.engineer)
+              option(value='#{key}',selected=true)=key
+            - else if (engineerNames[key] && engineerNames[key].selectable)
+              option(value='#{key}')=key
+
+        
+      //- Start time
+      .field.control-group
+        label(for='starttime') Start time 
+          b (required)
+        input(type='time', step='900', name='starttime', id='starttime', class='span4', value='#{docs.starttime}', title='Use the 24 hour clock')
+      
+      //- End time
+      .field.control-group
+        label(for='endtime') End time 
+          b (required)
+        input(type='time', step='900', name='endtime', id='endtime', class='span4', value='#{docs.endtime}', title='Use the 24 hour clock')
+        
+      //- Site address
+      .field.control-group
+        label(for='address') Site address
+        textarea(rows=5, cols=20, name='address', id='address')= docs.address
+        
+      //- Postcode
+      .field.control-group
+        label(for='postcode') Postcode 
+          b (required)
+        input(type='text', name='postcode', id='postcode', value='#{docs.postcode}')
+        - if (docs.postcode != '')
+          p 
+            a(rel='external', href='https://maps.google.com/maps?q=' + docs.postcode + ',+United+Kingdom') View location on a map  
+            br
+            a(rel='external', href='https://maps.google.com/maps?saddr=' + hq.postcode + '&daddr=' + docs.postcode + ',+United+Kingdom') Get directions from MACH HQ
+            
+      //- Contact name
+      .field.control-group
+        label(for='name') Name
+        input(type='text', name='name', id='name', value='#{docs.name}')
+      
+      //- Contact number
+      .field.control-group
+        label(for='phone') Phone number
+        input(type='tel', name='phone', id='phone', value='#{docs.phone}')
+
+      //- Instructions
+      .field.control-group
+        label(for='instructions') Tester instructions
+        textarea(rows=5, cols=20, name='instructions', id='instructions')= docs.instructions
+        
+    //- Invoice details
+    fieldset.span4
+      legend Invoice details
+      
+      
+      //- Company name
+      .field.control-group
+        label(for='companyname') Company name
+        input(type='text', name='companyname', id='companyname', value='#{docs.companyname}')
+      
+      //- Invoice address
+      .field.control-group
+        label(for='invoiceaddress') Invoice address
+        textarea(rows=5, cols=20, name='invoiceaddress', id='invoiceaddress')= docs.invoiceaddress
+      
+      //- Invoice email
+      .field.control-group
+        label(for='email') Email
+        .input-prepend
+          span.add-on @
+          input(type='text', name='email', id='email', class='span8', value='#{docs.email}')
+      
+      //- Phone number
+      .field.control-group
+        label(for='invoicephone') Contact number
+        input(type='tel', name='invoicephone', id='invoicephone', value='#{docs.invoicephone}')
+      
+      //- Comments
+      .field.control-group
+        label(for='comments') Comments
+        textarea(rows=5, cols=20, name='comments', id='comments')= docs.comments
+      
+      //- Amount quoted
+      field.control-group
+        label(for='amountquoted') Amount quoted
+        .input-prepend
+          span.add-on £
+          input(type='text', name='amountquoted', id='amountquoted', class='span4', value='#{docs.amountquoted}')
+      
+      //- Additional costs
+      field.control-group
+        label(for='additionalcosts') Additional costs
+        .input-prepend
+          span.add-on £
+          input(type='text', name='additionalcosts', id='additionalcosts', class='span4', value='#{docs.additionalcosts}')
+      
+    //- Booking info
+    fieldset.span4
+      legend Booking info
+      
+      //- Booked by
+      .field.control-group
+        label(for='bookedby') Booked by
+        select(name='bookedby', id='bookedby', required=true)
+          option(value='')=''
+          - each key in Object.keys(bookedByNames).sort()
+            - if (!bookedByNames[key] || key == docs.bookedby)
+              option(value='#{key}',selected=true)=key
+            - else if (bookedByNames[key] && bookedByNames[key].selectable)
+              option(value='#{key}')=key
+
+          
+      .field.control-group
+        label SAGE Group    
+        - each key in Object.keys(sageGroupNames)
+          .form-inline
+            input(type='checkbox', name='sagegroup', id='#{"sagegroup_"+key}', value='#{key}', checked=(docs.sagegroup && docs.sagegroup.indexOf(key)!==-1 ? true : undefined))
+            label(for='#{"sagegroup_"+key}')= "&nbsp;" + sageGroupNames[key].name
+      
+
+
+
+      //- Sound tests
+      .field.control-group
+        label(for='soundtests') Sound tests
+        input(type='number', name='soundtests', id='soundtests', min=0, class='span4', value='#{docs.soundtests}')
+        
+      //- Air tests
+      .field.control-group
+        label(for='airtests') Air tests
+        input(type='number', name='airtests', id='airtests', min=0, class='span4', value='#{docs.airtests}')
+      
+
+      // Drawings Requested
+      .field.control-group
+        label(for='drawingsrequested') Drawings Requested
+        select(name='drawingsrequested', id='drawingsrequested')
+          option(value='', selected=docs.drawingsrequested == '')
+          option(value='Yes', selected=docs.drawingsrequested === 'Yes') Yes
+          option(value='No', selected=docs.drawingsrequested === 'No') No
+          
+      // Status
+      .field.control-group
+        label(for='status') Status
+        select(name='status', id='status')
+          option(value='Unconfirmed', selected=docs.status == 'Unconfirmed') Unconfirmed
+          option(value='Confirmed', selected=docs.status == 'Confirmed') Confirmed
+          option(value='Completed', selected=docs.status == 'Completed') Completed
+        
+      // Status
+      .field.control-group
+        .form-inline
+          input(type='checkbox', name='paid', id='paid', value='true', checked=docs.paid)
+          label(for='paid') &nbsp;Paid
+
+      //- Show overview
+      - if (bookingid != '')
+        //- Other info
+        legend Quick info
+        
+        //- Status
+        p Status: #{docs.status}
+        
+        //- Paid
+        p Paid: 
+          - if (docs.paid)
+            span.label.label-success Yes
+          - else
+            span.label.label-important No
+        //- Stacked
+        p Stacked: 
+          - if (docs.pairid)
+            span.label.label-success Yes
+            |
+            a(href='/admin/booking/edit/#{docs.pairid}') View pair
+          - else
+            span.label.label-important No
+        
+        //- Testing Time
+        p On site: 
+          -if (docs.testingtime)
+            | #{docs.testingtime} minutes (#{(docs.testingtime/60).toFixed(2)} hours)
+          -else
+            | N/A
+
+        //- Time from HQ
+        p Time from HQ: 
+          -if (docs.timefromhq)
+            | #{docs.timefromhq} minutes (#{(docs.timefromhq/60).toFixed(2)} hours)
+          -else
+            | N/A
+
+        //- Total day
+        p Total testing day: 
+          -if (docs.testingday)
+            | #{docs.testingday} minutes (#{(docs.testingday/60).toFixed(2)} hours)
+          -else
+            | N/A
+
+        //- Created
+        //- var timestamp = docs._id;
+        p Created: 
+          -if (docs.created)
+            | #{docs.created.toString("yyyy-MM-dd HH:mm:ss")}
+          -else
+            | N/A
+        
+        //- Last updated
+        p Last updated: 
+          -if (docs.lastupdated)
+            | #{docs.lastupdated.toString("yyyy-MM-dd HH:mm:ss")}
+          -else
+            | N/A
+        
+      //- Submit
+      .field.control-group
+        input(type='submit', name='submit', id='submit', value='Save this booking', class='btn btn-primary btn-large')
+        -if (exportbutton)
+          | &nbsp;&nbsp;&nbsp;
+          input(type='submit', name='submit', id='submit', value='Download data', class='btn btn-large')
+        input(type='hidden', name='bookingid', value='#{bookingid}')
+        input(type='hidden', name='lat', value='#{docs.lat}')
+        input(type='hidden', name='lon', value='#{docs.lon}')
+        
+      //- Delete
+      .field.control-group
+        -if (deletebutton)
+          a(a href="/admin/booking/delete/#{bookingid}", class="btn btn-large btn-warning") Delete this booking
+
+          

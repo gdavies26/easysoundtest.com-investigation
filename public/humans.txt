@@ -1,0 +1,12 @@
+// MACH Testing sound test booking app
+ 
+/* TEAM */
+Design: Design 146 <http://www.design146.com>
+Build: Derek Ahmedzai <http://www.sharpshooter.org>, John Whittington
+
+/* SITE */
+Built in Node.js
+Hosted at Nodjitsu
+Mail delivery by PostMark
+
+Thanks for stopping by

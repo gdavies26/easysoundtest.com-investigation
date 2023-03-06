@@ -1,0 +1,166 @@
+extends admin-layout
+
+block content
+  h1= title
+      
+  -if (error)
+    .error
+      p=error
+          
+  form(action='/admin/settings/save', method='post').row-fluid
+  
+    p All fields are required.
+        
+    //- Test settings
+    fieldset
+      legend Sound test details
+      
+      //- Settings->Sound test time
+      .field.control-group
+        label(for='soundtesttime') Time for first sound test 
+        .input-append
+          input.span2(type='text', name='soundtesttime', id='soundtesttime', value='#{docs.soundtesttime}')
+          .add-on minutes
+      
+      //- Settings->Sound test prices
+      .field.control-group
+        label(for='soundtestpricefirst') Price for first sound test 
+        .input-prepend
+          .add-on £
+          input.span2(type='text', name='soundtestpricefirst', id='soundtestpricefirst', value='#{docs.soundtestpricefirst}')
+          
+      .field.control-group
+        label(for='soundtestpricesubsequent') Price for subsequent sound tests 
+        .input-prepend
+          .add-on £
+          input.span2(type='text', name='soundtestpricesubsequent', id='soundtestpricesubsequent', value='#{docs.soundtestpricesubsequent}')
+          
+      .field.control-group
+        label(for='soundtestdiscountlocal') Discount for local sound tests 
+        .input-prepend
+          .add-on £
+          input.span2(type='text', name='soundtestdiscountlocal', id='soundtestdiscountlocal', value='#{docs.soundtestdiscountlocal}')
+      
+      legend Air test details
+      //- Settings->Air test time
+      .field.control-group
+        label(for='airtesttime') Time for first air test 
+        .input-append
+          input.span2(type='text', name='airtesttime', id='airtesttime', value='#{docs.airtesttime}')
+          .add-on minutes
+      
+      //- Settings->Air test prices
+      .field.control-group
+        label(for='airtestpricefirst') Price for first air test 
+        .input-prepend
+          .add-on £
+          input.span2(type='text', name='airtestpricefirst', id='airtestpricefirst', value='#{docs.airtestpricefirst}')
+          
+      .field.control-group
+        label(for='airtestpricesubsequent') Price for subsequent air tests 
+        .input-prepend
+          .add-on £
+          input.span2(type='text', name='airtestpricesubsequent', id='airtestpricesubsequent', value='#{docs.airtestpricesubsequent}')
+      
+      //- Settings->Tester details
+      legend Working day details
+      .field.control-group
+        label(for='hoursperday') Hours per day 
+        .input-append
+          input.span2(type='text', name='hoursperday', id='hoursperday', value='#{docs.hoursperday}')
+          .add-on hours
+      .field.control-group
+        label(for='timebuffer') Time buffer (applied per site)
+        .input-append
+          input.span2(type='text', name='timebuffer', id='timebuffer', value='#{docs.timebuffer}')
+          .add-on minutes
+      .field.control-group
+        label(for='localtravel') Travel time threshold that deems a test local
+        .input-append
+          input.span2(type='text', name='localtravel', id='localtravel', value='#{docs.localtravel}')
+          .add-on minutes
+      .field.control-group
+        label(for='stackdays') Stack days: if one tester cannot stack the test, offer it at full price for a second tester to do
+        .input-append
+          input.span2(type='checkbox', name='stackdays', value='true', checked=(docs.stackdays ? true : undefined) )
+      .field.control-group
+        label(for='earliestleavetime') Earliest time that a tester can leave HQ 
+        .input-append
+          input.span2(type='text', name='earliestleavetime', id='earliestleavetime', value='#{docs.earliestleavetime}')
+          .add-on (Time in minutes, example: 540 = 9:00)
+      .field.control-group
+        label(for='latestreturntime') Latest time a tester can retrun to HQ 
+        .input-append
+          input.span2(type='text', name='latestreturntime', id='latestreturntime', value='#{docs.latestreturntime}')
+          .add-on (Time in minutes, example: 1140 = 19:00)
+      
+      //- Discount Detail
+      legend Discount settings
+      .field.control-group
+        label(for='noticelimit') Notice required
+        .input-append
+          input.span2(type='text', name='noticelimit', id='noticelimit', value='#{docs.noticelimit}')
+          .add-on days
+      .field.control-group
+        label(for='shortnotice') Short notice
+        .input-append
+          input.span2(type='text', name='shortnotice', id='shortnotice', value='#{docs.shortnotice}')
+          .add-on days
+      .field.control-group
+        label(for='longnotice') Long notice
+        .input-append
+          input.span2(type='text', name='longnotice', id='longnotice', value='#{docs.longnotice}')
+          .add-on days
+      .field.control-group
+        label(for='shortdiscount') Short notice discount
+        .input-prepend
+          .add-on £
+          input.span2(type='text', name='shortdiscount', id='shortdiscount', value='#{docs.shortdiscount}')
+      .field.control-group
+        label(for='longdiscount') Long notice discount
+        .input-prepend
+          .add-on £
+          input.span2(type='text', name='longdiscount', id='longdiscount', value='#{docs.longdiscount}')
+    
+    //- Application settings
+    fieldset
+      legend Application Settings
+      
+      //- Settings->Booking details
+      .field.control-group
+        label(for='bookingemail') Send booking emails to 
+        .input-prepend
+          .add-on @
+          input.span4(type='email', name='bookingemail', id='bookingemail', value='#{docs.bookingemail}')
+      //- HQ->Postcode
+      .field.control-group
+        label(for='postcode') HQ Postcode 
+        input(type='text', name='postcode', id='postcode', value='#{docs.postcode}')
+        - if (docs.postcode != '')
+          p 
+            a(rel='external', href='https://maps.google.com/maps?q=' + docs.postcode + ',+United+Kingdom') View location on a map
+      
+      //- HQ->Latitude
+      .field.control-group
+        label(for='lat') HQ Latitude 
+        input(type='text', name='lat', id='lat', value='#{docs.lat}')
+        p Find out the latitute/longitude of a postcode using this 
+          a(rel='external', href='http://sharpshooterlabs.com/projects/geo/geocoder/') geocoder
+      
+      //- HQ->Longitude
+      .field.control-group
+        label(for='lon') HQ Longitude 
+        input(type='text', name='lon', id='lon', value='#{docs.lon}')
+      
+    //- Save!
+    fieldset
+      legend All ok? Update the application settings
+        
+      //- Submit
+      .field.control-group
+        input(type='hidden', name='settingsid', value='#{settingsid}')
+        input(type='submit', name='submit', id='submit', value='Update settings', class='btn btn-primary btn-large')
+        | 
+        a(href='/admin', class='btn') Cancel
+
+          

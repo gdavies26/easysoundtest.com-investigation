@@ -1,0 +1,275 @@
+/* Admin styles for the MACH Acoustics sound test booking system */
+
+  body
+, select
+, textarea
+{
+  font-family:'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;
+}  
+
+#page
+{
+  max-width:960px;
+  margin:0 auto;
+}
+
+
+/* Text */
+
+::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
+::selection { background: #fe57a1; color: #fff; text-shadow: none; }
+
+
+/* Admin nav */
+
+#admin-nav
+{
+  background-color:#000;
+  padding:0.5em;
+  margin-bottom:0.5em;
+  color:#ccc;
+}
+
+  #admin-nav ul
+  {
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  
+    #admin-nav ul li
+    {
+      display:inline;
+      margin-right:1em;
+    }
+  
+    #admin-nav ul li.right
+    {
+      float:right;
+    }
+    
+    #admin-nav a:link
+    , #admin-nav a:visited
+    {
+      color: #40BFFF;
+    }
+
+/* Admin Calendar */
+
+.filter-engineer {
+    float:right;
+  }
+
+.filter-button {
+    float: right;
+    padding-left: 10px;
+  }
+/* make buttons look like links in dropdown menus */
+.dropdown-menu .dropdown-item {
+    display: block;
+    padding: 3px 15px;
+    clear: both;
+    font-weight: normal;
+    line-height: 18px;
+    color: #333;
+    white-space: nowrap;
+    border:none;
+    background:none;
+    width:100%;
+    text-align:left;
+}
+
+.dropdown-menu li>.dropdown-item:hover,.dropdown-menu .active>.dropdown-item,.dropdown-menu .active>.dropdown-item:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: #08c
+}
+
+/* Header */
+
+header
+{
+  border-bottom:1px solid #ccc;
+  margin-bottom:1em;
+  padding-bottom:1em;
+}
+
+
+/* Footer */
+
+footer
+{
+  border-top:1px solid #ccc;
+  margin-top:1em;
+  padding-top:1em;
+  color:#ccc;
+}
+
+
+/* Content */
+
+
+/* Bookings - list */
+
+.bookings
+{
+}
+
+  /*.booking
+  {
+    border-top:1px solid #ccc;
+  }*/
+  
+  .bookings table
+  {
+    width:100%;
+  }
+  
+    .bookings thead
+    {
+    }
+    
+    .bookings td
+    {
+      padding:10px;
+    }
+  
+  
+/* Forms */
+  
+.error
+{
+  background-color:#fdd;
+  color:#a00;
+  padding:1em;
+  margin:0 30px 1em 0;
+  border:1px solid #faa;
+}
+
+
+/* Bookings calendar */
+
+.bookings-calendar
+{
+  /*border-top:5px solid #cf0;*/
+  width:100%;
+}
+
+  .calendar-cell
+  {
+    /*border-top:1px solid #ccc;*/
+    width:13%;
+    float:left;
+    margin:10px 1% 10px 0;
+    min-height:50px;
+  }
+  
+    .calendar-cell p
+    {
+      margin-bottom:0.1em;
+    }
+  
+    .calendar-cell .date
+    {
+      /*color:#999;*/
+      /*opacity:0.5;
+      background-color:#eee;*/
+      background-color:#AAAAAA;
+      color:#fff;
+      line-height:2;
+      padding-left:5px;
+    }
+    
+    .calendar-cell i /*icons*/
+    {
+      margin-right:5px;
+    }
+
+  .calendar-cell-header
+  {
+    border-top:none;
+    text-transform: uppercase;
+    background-color: #6e3a95;
+    color:#eee;
+    text-align:center;
+    min-height:0;
+    line-height:2;
+  }
+  
+  .calendar-cell:nth-child(7n + 1)
+  {
+    clear:left;
+  }
+  
+  .calendar-cell-booking
+  {
+    border-top:1px dashed #ccc;
+    margin:10px 0;
+    padding:10px 0;
+  }
+
+  .calendar-cell-spacer {
+  	min-height: 30px;
+  	margin-top:10px;
+  }
+  
+  .calendar-cell-booking.lightweight
+  {
+    margin: 0;
+    padding: 5px;
+  }
+  
+  .calendar-cell-booking:first-of-type
+  {
+    border-top:none;
+  }
+  
+  .calendar-cell-actions
+  {
+    /*border-top:1px dashed #ccc;
+    margin:10px 0;
+    padding:10px 0;*/
+  }
+  
+  .calendar-cell .btn-group
+  {
+    margin-top:10px;
+  }
+  
+  .calendar-cell-na
+  {
+    opacity:0.5;
+    background-color:#eee;
+    line-height:2;
+    padding-left:5px;
+  }
+  
+  .calendar-cell-today
+  {
+    background-color:#ffd;
+  }
+  
+  .calendar-cell-booking-paid a
+  {
+    color: #333;
+  }
+  
+  .calendar-cell-booking-unpaid a
+  {
+    color: #900;
+  }
+
+  .calendar-cell-booking-unconfirmed 
+  {
+    background: yellow;
+  }
+
+    .calendar-cell-booking-easysoundtest 
+  {
+    background: #4863A0;
+  }
+  
+  .calendar-cell-booking-unconfirmed a
+  {
+    color: #900;
+  }

@@ -1,0 +1,10 @@
+extends admin-layout
+
+block content
+  h1= title
+  p Are you sure? This can't be undone.
+  form(action='/admin/booking/delete', method='post')
+    input(type='submit', value='Yes, delete it', class='btn btn-warning')
+    input(type='hidden', name='bookingid', value='#{bookingid}')
+  p 
+    a(href='/admin/booking/all') No thanks.

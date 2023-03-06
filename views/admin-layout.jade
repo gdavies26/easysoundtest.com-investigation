@@ -1,0 +1,81 @@
+//-
+  | Main admin theme for the MACH sound test booking site.
+doctype 5
+html(lang="en")
+  head
+    title= title
+      |  - MACH Testing
+    link(rel='stylesheet', href='/styles/bootstrap.min.css')
+    link(rel='stylesheet', href='/styles/bootstrap-responsive.min.css')
+    link(rel='stylesheet', href='/styles/styles.css')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700&subset=latin,latin-ext')
+    script(src='/scripts/libs/modernizr-2.5.3.min.js')
+    block scripts
+  body
+    #admin-nav
+      ul
+        li MACH Testing sound test booking system » 
+        li
+          a(href="/admin/dashboard") Dashboard
+        li
+          a(href="/admin/booking/calendar") Calendar
+        li
+          a(href="/admin/booking/all?sort=date&dir=desc") All bookings
+        //-li
+            a(href="/admin/engineer/all") Engineers
+        li
+            a(href="/admin/booking/new") + new booking
+        li
+            a(href="/admin/settings") Settings
+        li test
+        li
+            a(href="/admin/postcodes") Postcode  
+        li.right Visit the 
+          a(href="/") booking site
+  
+    #page
+
+      block content
+      
+      .row-fluid
+        .span12
+          footer
+            block footer
+            .site-credits
+              - var copyright_date = new Date().toString('yyyy')
+              p &copy; #{copyright_date} MACH Acoustics. 
+              //-
+                p For support contact 
+                  a(href='http://www.design146.com/') Design 146
+              //-
+                p This site was designed and built by 
+                  a(href='http://www.design146.com/') Design 146
+                  | and 
+                  a(href='http://www.sharpshooter.org/') Sharpshooter Digital
+                  |.
+                  
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js")
+    script
+      window.jQuery || document.write('<script src="/scripts/libs/jquery-1.7.2.min.js"><\/script>')
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js", integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==", crossorigin="anonymous")
+    script(src="/scripts/plugins.js")
+    script(src="/scripts/admin.js")
+                
+    block footerscripts
+    
+    script
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-5468576-7']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+      
+  //-
+    | I'll write a proper 'how I made this' post later, but for now, here's a quick list of the ingredients:
+    | - nodejs (express, mongodb, jade)
+    | - openstreetmap and mapquest APIs
+    

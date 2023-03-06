@@ -1,0 +1,123 @@
+extends admin-layout
+
+block content
+  h1= title
+  .pagination
+    ul
+      li
+        a(href='/admin/booking/calendar?#{pager.prev}') ← Previous month
+      li
+        a(href='/admin/booking/calendar?#{pager.curr}') Current month
+      li
+        a(href='/admin/booking/calendar?#{pager.next}') Next month →
+      li
+        //--var postcode = ''
+        //-form(action='/admin/booking/calendar/results', method='post')
+            //-input(type="text", size="8", placeholder="Test postcode", id="postcode", name="postcode", value="#{postcode}")
+            //-input(id='go-book', class='go-book', type='submit', value='Find')
+
+    -var engineer
+    -var testtype
+    .filter-engineer
+      form(action='#{current}?#{engineer}', method='get')
+        label(for='engineer') Jobs for  
+          select(name='engineer', id='engineer')
+            - each key in Object.keys(engineerNames).sort()
+              - if (!engineerNames[key] || key == engineer)
+                option(value='#{key}',selected=true)=key
+              - else if (engineerNames[key] && engineerNames[key].selectable)
+                option(value='#{key}')=key
+
+          .filter-button
+            input(type='submit', value='Filter', class='btn btn-primary btn-large')
+        //-label(for='testtype') Test Type  
+          //-select(name='testtype', id='testtype')
+            //-option(value='')
+            //-option(value='Sound Test') Sound Test 
+            //-option(value='Air Test') Air Test 
+            //-option(value='BS4142 Assessment') BS4142 Assessment 
+            //-option(value='Environmental Noise Assessment') Environmental Noise Survey 
+            //-option(value='Noise Survey') Noise Survey 
+
+  p Showing 
+    b #{docs.length} 
+    | bookings. Add a 
+    a(href='/admin/booking/new') new booking.
+    
+  // p= docs.length
+  // p= cal_pre
+  // p= cal_post
+  // p= cal_days
+          
+  form(action='', method='post')        
+      #content.bookings-calendar
+        .calendar-cell.calendar-cell-header Monday
+        .calendar-cell.calendar-cell-header Tuesday
+        .calendar-cell.calendar-cell-header Wednesday
+        .calendar-cell.calendar-cell-header Thursday
+        .calendar-cell.calendar-cell-header Friday
+        .calendar-cell.calendar-cell-header Saturday
+        .calendar-cell.calendar-cell-header Sunday
+        - for (i = 0; i < cal_pre; i ++)
+          .calendar-cell
+            .calendar-cell-na
+              p N/A
+        - var todays_date = new Date().toString("dd MMMM yy")
+        - for (i = 1; i <= cal_days; i ++)
+          - var the_date = Date.parse(datestamp_prefix + i).toString("dd MMMM yy")
+          - if (the_date == todays_date)
+            -var cellclass = 'calendar-cell calendar-cell-today';
+          - else
+            -var cellclass = 'calendar-cell';
+          div(class=cellclass)
+            p.date 
+              i.icon-calendar.icon-white 
+              | #{the_date}
+            - var d = days[datestamp_prefix + i]
+            
+            .calendar-cell-spacer
+                - if (d)
+                  - for (var d in days[datestamp_prefix + i])
+                    - if (days[datestamp_prefix + i][d].paid)
+                      - var paid_class = 'calendar-cell-booking-paid'
+                    - else if (days[datestamp_prefix + i][d].bookedby === 'EasySoundTest')
+                      - var paid_class = 'calendar-cell-booking-easysoundtest'
+                    - else if (days[datestamp_prefix + i][d].status === 'Unconfirmed')
+                      - var paid_class = 'calendar-cell-booking-unconfirmed'
+                    - else
+                      - var paid_class = 'calendar-cell-booking-unpaid'
+                    // TYPE OF TEST
+                    - if (days[datestamp_prefix + i][d].sagegroup)
+                      - var type = days[datestamp_prefix + i][d].sagegroup.map(function(key) { return sageGroupNames[key] ? sageGroupNames[key].abbreviation : null; }).join(' + ')
+                    - else 
+                      - var type = 'NS'
+                    // PAIRED?
+                    - if (days[datestamp_prefix + i][d].pairid)
+                      - var paired = '+'
+                    - else
+                      - var paired = ''
+                    .calendar-cell-booking.lightweight
+                    
+                      p(class=paid_class)
+                        a(a href="/admin/booking/edit/#{days[datestamp_prefix + i][d]._id}") #{type} #{days[datestamp_prefix + i][d].starttime} &ndash; #{days[datestamp_prefix + i][d].endtime} #{paired}
+                        p #{days[datestamp_prefix + i][d].postcode}
+                        p #{days[datestamp_prefix + i][d].engineer}
+                
+                - if (holidays[datestamp_prefix + i])
+                    span(class="label label-info", title="This day is marked as not available for customers to make bookings", data-toggle="tooltip" ) Holiday
+            .btn-group
+              a(href="/admin/booking/new/#{datestamp_prefix + (i<10?'0':'') +  i}", class="btn btn-mini ") Add new
+              button(type="button", class="btn btn-mini dropdown-toggle", data-toggle="dropdown", aria-haspopup="true", aria-expanded="false")
+                span(class="caret")
+              ul(class="dropdown dropdown-menu")
+                - if (holidays[datestamp_prefix + i])
+                    li
+                      button(type='submit', value='#{datestamp_prefix + (i<10?'0':'') + i}', name='removeHoliday', class='dropdown-item',title='Make this day available for bookings.') Remove holiday
+                - else
+                    li
+                      button(type='submit', value='#{datestamp_prefix + (i<10?'0':'') + i}', name='makeHoliday', class='dropdown-item',title='Make this day unavailable so customers cannot book on this day.') Make holiday
+                  
+        - for (i = 0; i < cal_post; i ++)
+          .calendar-cell
+            .calendar-cell-na
+              p N/A

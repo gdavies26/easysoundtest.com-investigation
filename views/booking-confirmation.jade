@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  #main
+    .indent.webform
+      h1= title
+      p We will respond with a confirmation within 24 hours.
+      
+      -if (error)
+        .error
+          p=error
+          
+  Confirmation.

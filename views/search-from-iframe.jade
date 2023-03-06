@@ -1,0 +1,35 @@
+form(action='/search/results#results', method='post')
+  .row.clearfix
+    .col.col-1
+      .box-number
+      .box
+        p 
+          label(for="postcode") Postcode of the property where the sound test is being done:
+        input(type="text", size="8", placeholder="Your postcode", id="postcode", name="postcode", value="#{postcode}")
+      .box-help
+        p If any of our engineers are in your area, we can offer you a sound test for a reduced price!
+        
+    .col.col-2
+      .box-number.box-number-2
+      .box
+        p
+          label(for="houses") Number of properties:
+        p.inline
+          label(for="houses") Houses:
+          input(type="text", size="8", placeholder="2 minimum", id="houses", name="houses", value="#{houses}")
+        p.inline
+          label(for="flats") Flats:
+          input(type="text", size="8", placeholder="2 minimum", id="flats", name="flats", value="#{flats}")
+        //p.inline
+          label(for="airtests") Air tests:
+          input(type="text", size="8", placeholder="optional", id="airtests", name="airtests", value="#{airtests}")
+      .box-help
+        p If you have more than 10 properties or you know you require more than 1 sound test, please <a href="/booking/form/custom">let us know using this form</a> or call us on 0843 3094504.
+        
+    .col.col-3
+      .box-number.box-number-3
+      .box
+        p Click here to find out the special deals we can offer you:
+        input(id="go-book", class="go-book", target='_blank', type="submit", value="Reserve a sound test »")
+      .box-help
+        p The results of your search will appear below. 

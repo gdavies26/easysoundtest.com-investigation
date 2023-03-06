@@ -1,0 +1,55 @@
+{
+  "name": "easysoundtest",
+  "subdomain": "johnmach-easysoundtest",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "version": "1.0.5-0",
+  "engines": {
+    "node": "7.10.x"
+  },
+  "description": "Finds the cheapest soundtest based on testing currently being done in area",
+  "contributors": [
+    {
+      "name": "Derek Ahmedzai",
+      "email": "derek@sharpshooter.org"
+    },
+    {
+      "name": "Chris Jones",
+      "email": "chris@machacoustics.com"
+    }
+  ],
+  "dependencies": {
+    "async": "0.1.x",
+  	"mongoose": "4.8.1",
+    "datejs": "0.0.x",
+    "express": "2.5.x",
+    "jade": "0.26.x",
+    "moment": "2.4.x",
+    "mongous": "0.2.3",
+    "postmark": "0.1.x",
+    "request": "2.9.x",
+    "underscore": "1.3.x",
+    "underscore.string": "2.2.x"
+  	},
+  "bundledDependencies": [
+    "async",
+    "express",
+    "jade",
+    "moment",
+    
+    "mongous",
+    "postmark",
+    "request",
+    "underscore",
+    "underscore.string"
+  ],
+  "domains": [
+    "www.easysoundtest.com",
+    "easysoundtest.com",
+    "easysoundtest.machacoustics.com",
+    "www.easysoundtest.machacoustics.com",
+    "www.easysoundtest.machtesting.co.uk"
+  ],
+  "os": "linux"
+}

@@ -1,0 +1,97 @@
+extends layout
+
+block content
+  #main
+    .indent.webform
+      h1= title
+      
+      -if (error)
+        .error
+          p=error
+          
+      include includes/search-form
+              
+  -if (results)
+    #results
+      h2 Your search results:
+      //-p Based on your requirements, we think you'll need XXX sound tests and YYY air tests.
+      -if (requirements)
+        p= requirements
+      .grid.clearfix
+        .row.clearfix
+          .cell.day-header Monday
+          .cell.day-header Tuesday
+          .cell.day-header Wednesday
+          .cell.day-header Thursday
+          .cell.day-header Friday
+            
+        .row.clearfix
+          - for (var i in results)
+            - if (results[i].available)
+              - if (results[i].special)
+                .cell.cell-special
+                  p.flash Special offer
+                  p.date=results[i].date
+                  p.spprice=results[i].price
+                  p.not-available (+VAT) 
+                  .book
+                    form(action='/booking/form', method='post')
+                      input(type='submit', value='Reserve now', class='book-now')
+                      input(type='hidden', name='postcode', value='#{postcode}')
+                      input(type='hidden', name='houses', value='#{houses}')
+                      input(type='hidden', name='flats', value='#{flats}')
+                      input(type='hidden', name='date', value='#{results[i].date}')
+                      input(type='hidden', name='price', value='#{results[i].price}')
+                      input(type='hidden', name='lat', value='#{lat}')
+                      input(type='hidden', name='lon', value='#{lon}')
+                      input(type='hidden', name='token', value='#{token}')
+                      input(type='hidden', name='timefromhq', value='#{results[i].timefromhq}')
+                      input(type='hidden', name='testingday', value='#{results[i].testingday}')
+                      input(type='hidden', name='timefromtest', value='#{results[i].timefromtest}')
+                      input(type='hidden', name='pairid', value='#{results[i].pairid}')
+              - else if (results[i].advanced)
+                .cell.cell-special
+                  p.advflash Advanced Discount
+                  p.date=results[i].date
+                  p.price=results[i].price
+                  p.not-available (+VAT) 
+                  .book
+                    form(action='/booking/form', method='post')
+                      input(type='submit', value='Reserve now', class='book-now')
+                      input(type='hidden', name='postcode', value='#{postcode}')
+                      input(type='hidden', name='houses', value='#{houses}')
+                      input(type='hidden', name='flats', value='#{flats}')
+                      input(type='hidden', name='date', value='#{results[i].date}')
+                      input(type='hidden', name='price', value='#{results[i].price}')
+                      input(type='hidden', name='lat', value='#{lat}')
+                      input(type='hidden', name='lon', value='#{lon}')
+                      input(type='hidden', name='token', value='#{token}')
+                      input(type='hidden', name='timefromhq', value='#{results[i].timefromhq}')
+                      input(type='hidden', name='testingday', value='#{results[i].testingday}')
+                      input(type='hidden', name='timefromtest', value='#{results[i].timefromtest}')
+              - else
+                .cell.cell-normal
+                  p.date=results[i].date
+                  p.price=results[i].price
+                  p.not-available (+VAT) 
+                  .book
+                    form(action='/booking/form', method='post')
+                      input(type='submit', value='Reserve now', class='book-now')
+                      input(type='hidden', name='postcode', value='#{postcode}')
+                      input(type='hidden', name='houses', value='#{houses}')
+                      input(type='hidden', name='flats', value='#{flats}')
+                      input(type='hidden', name='date', value='#{results[i].date}')
+                      input(type='hidden', name='price', value='#{results[i].price}')
+                      input(type='hidden', name='lat', value='#{lat}')
+                      input(type='hidden', name='lon', value='#{lon}')
+                      input(type='hidden', name='token', value='#{token}')
+                      input(type='hidden', name='timefromhq', value='#{results[i].timefromhq}')
+                      input(type='hidden', name='testingday', value='#{results[i].testingday}')
+                      input(type='hidden', name='timefromtest', value='#{results[i].timefromtest}')
+            - else
+              .cell.cell-na
+                p.date=results[i].date
+                p.not-available Date no longer                 
+                p.not-available Available
+                p.book &nbsp;
+

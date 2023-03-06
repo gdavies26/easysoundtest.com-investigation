@@ -1,0 +1,95 @@
+extends admin-layout
+
+block content
+  h1= title
+  p Sort by 
+    a(href="?sort=date") date 
+    a(href="?sort=date&dir=desc") (desc) 
+    a(href="?sort=name") name 
+    a(href="?sort=name&dir=desc") (desc) 
+    a(href="?sort=postcode") postcode 
+    a(href="?sort=postcode&dir=desc") (desc) 
+  p Showing 
+    b #{docs.length} 
+    | bookings. Add a 
+    a(href='/admin/booking/new') new booking.
+  
+  #export-all(style='text-align: right;')
+    a(href='/admin/booking/all/export', class='btn btn-large') Export all bookings
+  
+  #content.bookings
+    table
+      thead
+        tr
+          td 
+            a(href="?sort=date") Date 
+            a(href="?sort=date&dir=desc") (desc)
+          td 
+            a(href="?sort=starttime") Start time 
+            a(href="?sort=starttime&dir=desc") (desc)
+          td 
+            a(href="?sort=endtime") End time 
+            a(href="?sort=endtime&dir=desc") (desc)
+          td 
+            a(href="?sort=remaining") Hours remaining 
+            a(href="?sort=remaining&dir=desc") (desc)
+          td 
+            a(href="?sort=name") Name 
+            a(href="?sort=name&dir=desc") (desc)
+          td 
+            a(href="?sort=postcode") Postcode 
+            a(href="?sort=postcode&dir=desc") (desc)
+          td 
+            a(href="?sort=paid") Paid
+            a(href="?sort=paid&dir=desc") (desc)
+          td 
+            a(href="?sort=pairid") Stacked
+            a(href="?sort=pairid&dir=desc") (desc)
+          //-td 
+            a(href="?sort=houses") Houses  
+            a(href="?sort=houses&dir=desc") (desc)
+          //-td 
+            a(href="?sort=flats") Flats 
+            a(href="?sort=flats&dir=desc") (desc)
+          td Actions
+      tbody
+        - for (var i in docs)
+          tr
+            td= docs[i].date.toDateString()
+            td= docs[i].starttime
+            td= docs[i].endtime
+            td= 9 - ((docs[i].testingday/60).toFixed(2))
+            td= docs[i].name
+            td= docs[i].postcode
+            //-td= docs[i].houses
+            //-td= docs[i].flats
+            td
+              - if (docs[i].paid)
+                span.label.label-success Yes
+              - else
+                span.label.label-important No
+            td
+              - if (docs[i].pairid)
+                span.label.label-success Yes
+              - else
+                span.label.label-important No
+            td
+              .btn-group
+                a(a href="/admin/booking/edit/#{docs[i]._id}", class="btn btn-small") Edit 
+                a(a href="/admin/booking/delete/#{docs[i]._id}", class="btn btn-small btn-warning") Delete 
+      //-.booking
+        p.date= docs[i].date.toDateString()
+        p.name= docs[i].name
+        //p.email= docs[i].email
+        //p.phone= docs[i].phone
+        //p.address= docs[i].address
+        p.postcode= docs[i].postcode
+        //p.houses= docs[i].houses
+        //p.flats= docs[i].flats
+        //p.lat= docs[i].lat
+        //p.lon= docs[i].lon
+        //p.engineer= docs[i].engineer
+        //p.price= docs[i].price
+        p
+          a(a href="/admin/booking/edit/#{docs[i]._id}") Edit 
+          a(a href="/admin/booking/delete/#{docs[i]._id}") Delete 

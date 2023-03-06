@@ -1,0 +1,68 @@
+extends layout
+
+block content
+  #main
+    .indent.webform
+      h1= title
+      p Please fill in your details below and we will respond with a custom quote within 24 hours.
+      
+      -if (error)
+        .error
+          p=error
+          
+    #booking-form.indent.webform
+      form(action='/booking/form', method='post')
+        fieldset
+          legend About your tests
+          .field.inline
+            label(for='date') Desired date 
+              b (required)
+            -if (booking.date)
+              input(type='date', name='date', id='date', value='#{booking.date.toString('yyyy-MM-dd')}')
+            -else
+              input(type='date', name='date', id='date')
+          .field.inline
+            label(for='postcode') Postcode 
+              b (required) 
+            input(type='text', name='postcode', id='postcode', value='#{booking.postcode}')
+          .field.inline
+            label(for='houses') Number of houses 
+              b (required)
+            -if (booking.houses > 0)
+              input(type='text', name='houses', id='houses', value='#{booking.houses}', placeholder='2 minimum')
+            -else
+              input(type='text', name='houses', id='houses', placeholder='2 minimum')
+          .field.inline
+            label(for='flats') Number of flats 
+              b (required)
+            -if (booking.houses > 0)
+              input(type='text', name='flats', id='flats', value='#{booking.flats}', placeholder='2 minimum')
+            -else
+              input(type='text', name='flats', id='flats', placeholder='2 minimum')
+        fieldset
+          legend Your details
+          .field.inline
+            label(for='name') Name 
+              b (required)
+            input(type='text', name='name', id='name', value='#{booking.name}')
+          .field.inline
+            label(for='email') Email 
+              b (required)
+            input(type='text', name='email', id='email', value='#{booking.email}')
+          .field.inline
+            label(for='address') Address
+            textarea(rows=5, cols=20, name='address', id='address')= booking.address
+          .field.inline
+            label(for='comment') Comment
+            textarea(rows=5, cols=20, name='comment', id='comment')= booking.comment
+          .field.inline
+            label(for='phone') Phone number
+            input(type='text', name='phone', id='phone', value='#{booking.phone}')
+          b Please be aware that you are not booking a Sound test by pressing ‘Reserve Now’, once you have reserved a test a member of MACH Testing will contact you when possible to finalize the booking.
+          p
+          b By clicking 'Reserve now' you agree to the <a href='/terms.html'>Terms &amp; Conditions</a> of Easy Sound Test.
+          .field.inline
+            label &nbsp;
+            input(type='submit', value='Reserve now', class='go-book')
+            input(type='hidden', name='bookingid', value='')
+            input(type='hidden', name='token', value='#{token}')

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Create a booking - MACH Testing</title>
+<link rel="stylesheet" href="/styles/bootstrap.min.css">
+<link rel="stylesheet" href="/styles/bootstrap-responsive.min.css">
+<link rel="stylesheet" href="/styles/styles.css">
+<script src="/scripts/jquery-1.7.2.min.js">
+</script>
+</head>
+<body>
+<div id="admin-nav">
+<ul>
+<li>MACH Testing sound test booking system » </li>
+<li>
+<a href="/admin/booking/all">Bookings</a>
+</li>
+<li>
+<a href="/admin/booking/calendar">Calendar</a>
+</li>
+<li class="right">Visit the <a href="/">booking site</a>
+</li>
+</ul>
+</div>
+<div id="page">
+<h1>Create a booking</h1>
+<form action="/admin/booking/save" method="post" class="row-fluid">
+  <fieldset class="span4">
+    <legend>Test details</legend>
+    
+    <div class="field control-group">
+      <label for="date">Date <b>(required)</b></label>
+      <input type="date" name="date" id="date" value="2012-08-04">
+    </div>
+    
+    <div class="field control-group">
+      <label for="starttime">Start time</label>
+      <input type="time" step="900" name="starttime" id="starttime" value="10:00"><!-- 3600 = 60 mins, 1800 = 30 mins, 900 = 15 mins -->
+    </div>
+    
+    <div class="field control-group">
+      <label for="endtime">End time</label>
+      <input type="time" step="900" name="endtime" id="endtime" value="11:00"><!-- 3600 = 60 mins, 1800 = 30 mins, 900 = 15 mins -->
+    </div>
+    
+    <div class="field control-group">
+      <label for="address">Site address</label>
+      <textarea rows="5" cols="20" name="address" id="address"></textarea>
+    </div>
+    
+    <div class="field control-group">
+      <label for="postcode">Postcode <b>(required)</b></label>
+      <input type="text" name="postcode" id="postcode" value="">
+    </div>
+    
+    <div class="field control-group">
+      <label for="name">Contact name</label>
+      <input type="text" name="name" id="name" value="">
+    </div>
+    
+    <div class="field control-group">
+      <label for="phone">Contact number</label>
+      <input type="tel" name="phone" id="phone" value="">
+    </div>
+    
+    <div class="field control-group">
+      <label for="phone">Amount quoted</label>
+      <div class="input-prepend">
+        <span class="add-on">£</span><input class="span4" id="prependedInput" size="16" type="text" value="0"/>
+      </div>
+    </div>
+    
+    <div class="field control-group">
+      <label for="phone">Additional costs</label>
+      <div class="input-prepend">
+        <span class="add-on">£</span><input class="span4" id="prependedInput" size="16" type="text" value="0"/>
+      </div>
+    </div>
+  </fieldset>
+  
+  <fieldset class="span4">
+    <legend>Invoice details</legend>
+    
+    <div class="field control-group">
+      <label for="jn">Job number</label>
+      <input type="text" name="jn" id="jn" value="120801-A">
+    </div>
+    
+    <div class="field control-group">
+      <label for="houses">Company name</label>
+      <input type="text" name="houses" id="houses">
+    </div>
+    
+    <div class="field control-group">
+      <label for="invoiceaddress">Invoice address</label>
+      <textarea rows="5" cols="20" name="invoiceaddress" id="invoiceaddress"></textarea>
+    </div>
+    
+    <div class="field control-group">
+      <label for="email">Invoice email</label>
+      <div class="input-prepend">
+        <span class="add-on">@</span><input class="span8" type="text" name="phone" id="phone" value="">
+      </div>
+    </div>
+    
+    <div class="field control-group">
+      <label for="phone">Phone number</label>
+      <input type="tel" name="phone" id="phone" value="">
+    </div>
+    
+    <div class="field control-group">
+      <label for="comments">Comments/instructions</label>
+      <textarea rows="5" cols="20" name="comments" id="comments"></textarea>
+    </div>
+  </fieldset>
+  
+  <fieldset class="span4">
+    <legend>Booking info</legend>
+    
+    <div class="field control-group">
+      <label for="booked_by">Booked by</label>
+      <select name="booked_by" id="booked_by">
+        <option>Damien Hesnan</option>
+        <option>Alex Jefferies</option>
+        <option>Chris Jones</option>
+        <option>Tracy Toal</option>
+        <option>Andrew Rickard</option>
+        <option>Stefan Hannan</option>
+        <option>Jeremie Defaud</option>
+        <option>Ze Nunes</option>
+      </select>
+    </div>
+    
+    <div class="field control-group">
+      <label for="name">Test type</label>
+      <div class="form-inline">
+        <input type="checkbox" name="test1" id="test1" value=""> <label for="test1">Sound Insulation Testing</label>
+      </div>
+      <div class="form-inline">
+        <input type="checkbox" name="test2" id="test2" value=""> <label for="test2">Air Pressure Testing</label>
+      </div>
+      <div class="form-inline">
+        <input type="checkbox" name="test3" id="test3" value=""> <label for="test3">Sound and Air Testing</label>
+      </div>
+      <div class="form-inline">
+        <input type="checkbox" name="test4" id="test4" value=""> <label for="test4">BS4142 Assessment</label>
+      </div>
+      <div class="form-inline">
+        <input type="checkbox" name="test5" id="test5" value=""> <label for="test5">Environmental Noise Assessment</label>
+      </div>
+      <div class="form-inline">
+        <input type="checkbox" name="test6" id="test6" value=""> <label for="test6">Noise Survey</label>
+      </div>
+    </div>
+    
+    <div class="field control-group">
+      <label for="houses">Sound tests</label>
+      <input class="span6" type="number" name="houses" id="houses" value="0">
+    </div>
+    
+    <div class="field control-group">
+      <label for="flats">Air tests</label>
+      <input class="span6" type="number" name="flats" id="flats" value="0">
+    </div>
+    
+    <legend>Other info</legend>
+    <p>Status: confirmed</p>
+    <p>Paid: <span class="label label-success">Yes</span></p>
+    <!--<p>Paid: <span class="label label-important">No</span></p>-->
+    <p>Created: 18 July 2012</p>
+    <p>Last updated: 20 July 2012</p>
+    <div class="field control-group">
+      <input type="submit" value="Save this booking" class="btn btn-primary btn-large">
+      <input type="hidden" name="bookingid" value="">
+    </div>
+  </fieldset>
+</form>
+<div class="row-fluid">
+<div class="span12">
+<footer>
+<div class="site-credits">
+<p>&copy;2012 MACH Acoustics. </p>
+</div>
+</footer>
+</div>
+</div>
+</div>
+</body>
+</html>
